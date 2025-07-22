@@ -1,0 +1,38 @@
+<!-- Display email and prompt field -->
+<html>
+    <head>
+        <title>Email and Prompt Input</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+            h2 {
+                color: #333;
+            }
+            label {
+                display: block;
+                margin-bottom: 8px;
+            }
+            textarea {
+                width: 100%;
+                padding: 10px;
+                box-sizing: border-box;
+                margin-bottom: 20px;
+            }
+        </style>
+        <script type="module" src="/src/displ-email-and-promptfield.ts"></script>
+    </head>
+    <body>
+        <div>
+            <div>
+                <label for="email">Email</label>
+                <textarea id="email" name="email" rows="4" required></textarea>
+            </div>
+        </div>
+        <div>
+            <label for="prompt">Prompt</label>
+            <textarea id="prompt" name="prompt" rows="4" required></textarea>
+        </div>
+    </body>
+</html>

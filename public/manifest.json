@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "Meine Thunderbird Extension",
+  "version": "1.0",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "message_display_action": {
+    "default_title": "AI generated Reply"
+  },  
+  "permissions": [
+    "messagesRead",
+    "menus",
+    "activeTab",
+    "tabs"    
+  ]
+}

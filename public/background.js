@@ -9,7 +9,7 @@ messenger.menus.create({
   contexts: ["message_list"]
 });
 
-messageRaw = "";
+emailContent = "";
 
 messenger.menus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId === "reply-with-ai") {
@@ -28,9 +28,9 @@ messenger.menus.onClicked.addListener(async (info, tab) => {
 
       console.log("Message header ID, id:", headerMessageId, messageId);
 
-      messenger.messages.getRaw(messageId).then((message) => {
+      messenger.messages.getFull(messageId).then((message) => {
         console.log("Message content fetched:", message);
-        messageRaw = message;
+        emailContent = message;
       }).catch((error) => {
         console.error("Error fetching message content:", error);
       })
@@ -39,7 +39,7 @@ messenger.menus.onClicked.addListener(async (info, tab) => {
 });
 
 messenger.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "getMessageRaw") {
-    sendResponse({ messageRaw });
+  if (message.action === "getMessage") {
+    sendResponse(emailContent);
   }
 });

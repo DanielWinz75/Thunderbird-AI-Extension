@@ -10,5 +10,6 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist', // Ausgabeverzeichnis für den Build
+    sourcemap: true // Quellmaps aktivieren
   },
 });

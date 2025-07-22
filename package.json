@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/firefox-webext-browser": "^120.0.4",
     "@types/node": "^24.0.15",
     "@types/webextension-polyfill": "^0.12.3",
     "glob": "^11.0.3",

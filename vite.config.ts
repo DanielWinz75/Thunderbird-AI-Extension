@@ -1,15 +1,15 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  publicDir: 'public', // Gibt an, dass der public-Ordner für statische Dateien verwendet wird
+  publicDir: 'public', // Specifies that the public folder is used for static files
   resolve: {
     alias: {
-      '@': '/src', // Alias für den src-Ordner
-      path: 'path-browserify' // Alias für Node-Umgebung
+      path: 'path-browserify' // Alias for Node environment
     },
   },
   build: {
-    outDir: 'dist', // Ausgabeverzeichnis für den Build
-    sourcemap: true // Quellmaps aktivieren
+    outDir: 'dist', // Output directory for the build
+    sourcemap: true, // Enable source maps
+    chunkSizeWarningLimit: 1000, // Warn if chunk size exceeds 1000 KB
   },
 });

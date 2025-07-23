@@ -1,5 +1,4 @@
-import { Email } from "./interfaces";
-import { EmailPart } from "./interfaces";
+import type { Email, EmailPart } from "./interfaces";
 
 export function displayEmailContent(email: Email): void {
     
@@ -30,7 +29,7 @@ function decodeBase64ToUtf8(base64: string): string | null {
         const binary = atob(base64.replace(/\s/g, ""));
         const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
         return new TextDecoder("utf-8").decode(bytes);
-    } catch (error) {
+    } catch (error: any) {
         console.error("Unable to decode base64 to Utf8:", error.message);
         return null;
     }

@@ -1,13 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "Meine Thunderbird Extension",
+  "name": "AI Reply Generator",
   "version": "1.0",
   "background": {
     "scripts": ["background.js"],
     "persistent": true
   },
   "message_display_action": {
-    "default_title": "AI generated Reply"
+    "default_title": "AI Reply Generator"
   },  
   "permissions": [
     "messagesRead",

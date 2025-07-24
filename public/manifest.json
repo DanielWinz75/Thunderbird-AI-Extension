@@ -21,6 +21,7 @@
     "tabs",
     "webRequest",
     "webRequestBlocking",
-    "https://api.mistral.ai/*"
+    "https://api.mistral.ai/*",
+    "storage"
   ]
 }

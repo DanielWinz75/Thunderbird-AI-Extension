@@ -1,7 +1,8 @@
 export interface Email {
   from: string;
   subject: string;
-  message?: EmailPart;
+  fullMessage?: EmailPart;
+  rawMessage?: string;
   errorOnFetchingEmailMessage: string;
 }
 
@@ -12,4 +13,12 @@ export interface EmailPart {
   headers: {
     [key: string]: string[];
   };
+}
+
+export interface AIReplySettings {
+    aiReplyApiKey?: string;
+    aiReplyApiAddress?: string;
+    aiReplyPromptMain?: string;
+    aiReplyPromptFormat?: string;
+    aiReplyModel?: string;
 }

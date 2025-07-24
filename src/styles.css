@@ -22,3 +22,12 @@ label {
     box-sizing: border-box;
     margin-bottom: 20px;
 }
+
+.hideRawWarning {
+    display: none;
+}
+
+#displayRaw {
+    color: red;
+    margin-top: 10px;
+}

@@ -4,24 +4,37 @@ export function displayEmailContent(email: Email): void {
     
     if(email.errorOnFetchingEmailMessage) {
         console.error("Error fetching email message:", email.errorOnFetchingEmailMessage);
-
-        // Display error message to the user
     }
 
-    var label = document.getElementById("emailLabel");
-    if (label) {
-        label.textContent = `Email from: ${email.from} - Subject: ${email.subject}`;
-    }    
-    
-    if (email.message) {
-        const emailContent = getFirstMessageBody(email.message);
-        console.log("Email content:", emailContent);
-        
+    let emailContent: string | null;
+    if (email.fullMessage) {
+        emailContent = findBody(email.fullMessage);
+
+        if (!emailContent) {
+            console.warn("No text/plain body found in email, displaying raw message instead.");
+            emailContent = ""+email.rawMessage;
+        } else {
+            const rawWarning = document.getElementById("displayRaw");
+            if (rawWarning) {
+                rawWarning.classList.toggle("hideRawWarning");
+            }
+        }
+
         const emailInput = document.getElementById("email") as HTMLInputElement | null;
         if (emailInput) {
             emailInput.value = emailContent;
         }
     }
+
+    const subject = document.getElementById("subject") || null;
+    if (subject) {
+        subject.textContent = email.subject;
+    }
+
+    const sender = document.getElementById("sender") || null;
+    if (sender) {
+        sender.textContent = email.from;
+    }      
 }
 
 function decodeBase64ToUtf8(base64: string): string | null {
@@ -55,10 +68,10 @@ function findBody(part: EmailPart): string | null {
     return null;
 }
 
-function getFirstMessageBody(full: EmailPart): string {
-    const body = findBody(full);
-    if (!body) {
-        throw new Error("Message cannot be displayed, no body found.");
-    }
-    return body;
-}
+// function getFirstMessageBody(full: EmailPart): string {
+//     const body = findBody(full);
+//     if (!body) {
+//         throw new Error("Message in text/plain format cannot be found. Display raw message instead.");
+//     }
+//     return body;
+// }

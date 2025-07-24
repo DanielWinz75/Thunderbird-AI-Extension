@@ -6,17 +6,19 @@
     </head>
     <body>
         <div>
-            <div>
-                <label for="email" id="emailLabel">Email</label>
-                <textarea id="email" name="email" rows="4" required></textarea>
-            </div>
+            <p>Email: <i id="subject"></i></p>
+            <p>Sender: <i id="sender"></i></p>
+            <p id="displayRaw">Plain mail text not available. Display raw email.</p>
+        </div>
+        <div>
+            <textarea id="email" name="email" rows="4" required></textarea>
         </div>
         <div>
             <label for="prompt">Prompt</label>
             <textarea id="prompt" name="prompt" rows="4" required></textarea>
         </div>
         <div>
-            <button id="generateReply">Generate Reply</button>
+            <button id="generateReplyButton">Generate Reply</button>
         </div>
     </body>
 </html>

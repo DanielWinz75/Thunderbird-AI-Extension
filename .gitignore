@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 ai-reply.xpi
+public/secret.json
 
 # Editor directories and files
 .vscode/*

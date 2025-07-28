@@ -127,12 +127,15 @@ async function fetchAIReply(prompt) {
     },
     body: JSON.stringify(apiRequestBody)
   });
-
-  if (!response.ok) {
+  if (!response || !response.ok) {
     throw new Error(`HTTP error! status: ${response.status}, statusText: ${response.statusText}, message: ${response.detail[0].msg}`);
-  }
-
+  }  
   const aiGeneratedReply = await response.json();
+
+  // TEST - don't request, set dummy
+  // const dummyReply = '{"id":"df8eee5a911a4dcdb6045e43ec347fa8","created":1753688219,"model":"mistral-small-latest","usage":{"prompt_tokens":1037,"total_tokens":1055,"completion_tokens":18},"object":"chat.completion","choices":[{"index":0,"finish_reason":"stop","message":{"role":"assistant","tool_calls":null,"content":"Hi, Please remove me from your mailing list. Best regards, [Your Name]"}}]}';
+  // aiGeneratedReply = JSON.parse(dummyReply);
+
   console.log("AI reply fetched successfully:", aiGeneratedReply);
 
   return aiGeneratedReply.choices[0].message.content.trim();
@@ -140,7 +143,9 @@ async function fetchAIReply(prompt) {
 
 async function closePopupAndOpenReplyWindow(aiGeneratedReply) {
   try {
-    tab = await messenger.compose.beginReply(email.messageId, "replyToAll", {isPlainText: !email.isHtml});
+
+    // da das hinzufügen von html element nicht funktioniert habe ich nun isPlainText prinzipiell auf true gesetzt
+    tab = await messenger.compose.beginReply(email.messageId, "replyToAll", {isPlainText: true /*!email.isHtml*/});
 
     let details = await messenger.compose.getComposeDetails(tab.id);
 
@@ -151,9 +156,19 @@ async function closePopupAndOpenReplyWindow(aiGeneratedReply) {
       });
     } else {
       await messenger.compose.setComposeDetails(tab.id, {
-        body: "<p>" + aiGeneratedReply + "</p><br><br>" + details.body
+
+        // const parser = new DOMParser();
+        // const doc = parser.parseFromString(html, "text/html");
+        // return doc.body.innerHTML;
+
+        body: "<p>" + aiGeneratedReply + "</p>" + "<HTML><head></head><body><p>hello</p></body></HTML>"
       });
     }    
+
+// <br><br>" + details.body
+
+    const test = await messenger.compose.getComposeDetails(tab.id);
+    console.log("details enthält: ", test);
 
     await browser.windows.remove(win.id);
 
@@ -174,38 +189,3 @@ function checkPartsForContentType(parts) {
     }
   }
 }
-
-
-
-
-// Compose-Event-Handler
-// function handleComposeReady(info, state) {
-
-//     console.log("Compose state changed:", info, state, tab);
-
-//     if (info.tabId !== tab.id || info.state !== "ready") {
-//         return;
-//     }
-
-//     // Listener wieder entfernen, da wir ihn nur einmal brauchen
-//     messenger.compose.onComposeStateChanged.removeListener(handleComposeReady);
-
-//     (async () => {
-//         // Compose-Details holen
-//         let details = await messenger.compose.getComposeDetails(tab.id);
-
-//         // Body vorbereiten
-//         let newBody;
-//         if (details.isPlainText) {
-//             newBody = aiGeneratedReply + "\n\n" + details.body;
-//         } else {
-//             newBody = "<p>" + aiGeneratedReply + "</p><br><br>" + details.body;
-//         }
-
-//         console.log("Setting new body:", newBody);
-
-//         await messenger.compose.setComposeDetails(tab.id, { body: newBody });
-//     })();
-// }
-
-// messenger.compose.onComposeStateChanged.addListener(handleComposeReady);

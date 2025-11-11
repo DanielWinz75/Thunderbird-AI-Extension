@@ -82,16 +82,10 @@ https://api.mistral.ai/*
 It requires a valid Mistral API key.  
 You can store it securely using Thunderbird’s `storage` API:
 
-```javascript
-browser.storage.local.set({
-  mistralApiKey: "YOUR_MISTRAL_API_KEY"
-});
-```
-
-Before sending a request, retrieve it:
+Execute this line on the console in the DevTools of Thunderbird: 
 
 ```javascript
-const { mistralApiKey } = await browser.storage.local.get("mistralApiKey");
+await browser.storage.local.set({ mistralApiKey: "mein_api_key" });
 ```
 
 Do **not** hardcode the API key inside the source code.

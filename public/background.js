@@ -1,13 +1,8 @@
-//let aiReplyApiKey = '';
 const aiReplyApiAddress = 'https://api.mistral.ai/v1/chat/completions';
 const aiReplyPromptMain = "General system instructions what to do: \nGenerate a reply to the email content provided below. Generate the reply text only. Don't generate any comments. Don't put the subject of the email into the reply message. Be concise with names for salutation and ending of the reply. The reply should be relevant to the email's subject and content. The reply should be in the same language as the original email. The reply should be concise and to the point. Do not include any personal information or sensitive data in the reply.";
 const aiReplyPromptFormat = "How to format the reply: \nThe reply should be formatted as a complete email text with a salutation and closing. The subject should not be repeated in the reply. The reply should be in plain text format. Do not include any HTML or rich text formatting in the reply.";
 const aiReplyModel = "mistral-small-latest";
-//messenger.storage.local.set({aiReplyApiKey});
-messenger.storage.local.set({aiReplyApiAddress});
-messenger.storage.local.set({aiReplyPromptMain});
-messenger.storage.local.set({aiReplyPromptFormat});
-messenger.storage.local.set({aiReplyModel});
+
 
 const email = {
   messageId: "",
@@ -21,8 +16,24 @@ const email = {
   isHtml: false
 };
 
-messenger.runtime.onInstalled.addListener(() => {
+messenger.runtime.onInstalled.addListener(async () => {
   console.log("Extension installed!");
+
+  const fileresponse = await fetch('configuration.json');
+  if (!fileresponse.ok) {
+    throw new Error(`HTTP-Fehler: ${fileresponse.status}`);
+  }
+  const data = await fileresponse.json();  
+
+  data.aiReplyApiAddress = data.aiReplyApiAddress || aiReplyApiAddress;
+  data.aiReplyPromptMain = data.aiReplyPromptMain || aiReplyPromptMain;
+  data.aiReplyPromptFormat = data.aiReplyPromptFormat || aiReplyPromptFormat;
+  data.aiReplyModel = data.aiReplyModel || aiReplyModel;
+
+  messenger.storage.local.set({aiReplyApiAddress: data.aiReplyApiAddress});
+  messenger.storage.local.set({aiReplyPromptMain: data.aiReplyPromptMain});
+  messenger.storage.local.set({aiReplyPromptFormat: data.aiReplyPromptFormat});
+  messenger.storage.local.set({aiReplyModel: data.aiReplyModel});
 });
 
 messenger.menus.create({
@@ -108,13 +119,8 @@ messenger.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 async function fetchAIReply(prompt) {
-  const fileresponse = await fetch('secret.json');
-  if (!fileresponse.ok) {
-    throw new Error(`HTTP-Fehler: ${fileresponse.status}`);
-  }
-  const data = await fileresponse.json();
 
-  const aiReplyApiKey = data.mistralsecret;
+  const aiReplyApiKey = (await messenger.storage.local.get("mistralApiKey")).mistralApiKey;
 
   const settings = await messenger.storage.local.get({aiReplyApiAddress, aiReplyModel});
 

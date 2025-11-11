@@ -71,7 +71,7 @@ https://api.mistral.ai/*
 It requires a valid Mistral API key.  
 You can store it securely using Thunderbird’s `storage` API:
 
-Execute this line on the console in the DevTools of Thunderbird: 
+Replace "mein_api_key" and execute this line on the console in the DevTools of Thunderbird: 
 
 ```javascript
 await browser.storage.local.set({ mistralApiKey: "mein_api_key" });

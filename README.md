@@ -14,8 +14,19 @@ It is intended for users who want to integrate generative AI directly into Thund
 - Read message content in Thunderbird.
 - Generate context-aware replies using Mistral AI.
 - Insert generated text directly into the compose window.
-- Configure settings and API key locally.
+- Configure settings and API key locally. The API key has to be added to "public/secret.json"
 
+---
+
+## Configuration
+
+The API key has to be added to "public/secret.json":
+
+```json
+{
+    "mistralsecret": "XYZ"
+}
+```
 ---
 
 ## ⚙️ Installation

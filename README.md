@@ -14,7 +14,7 @@ It is intended for users who want to integrate generative AI directly into Thund
 - Read message content in Thunderbird.
 - Generate context-aware replies using Mistral AI.
 - Insert generated text directly into the compose window.
-- Configure settings and API key locally.
+- Configure settings and API key locally. The API key has to be added to "public/secret.json"
 
 ---
 
@@ -71,16 +71,10 @@ https://api.mistral.ai/*
 It requires a valid Mistral API key.  
 You can store it securely using Thunderbird’s `storage` API:
 
-```javascript
-browser.storage.local.set({
-  mistralApiKey: "YOUR_MISTRAL_API_KEY"
-});
-```
-
-Before sending a request, retrieve it:
+Execute this line on the console in the DevTools of Thunderbird: 
 
 ```javascript
-const { mistralApiKey } = await browser.storage.local.get("mistralApiKey");
+await browser.storage.local.set({ mistralApiKey: "mein_api_key" });
 ```
 
 Do **not** hardcode the API key inside the source code.
@@ -198,7 +192,7 @@ const response = await mistralClient.chat({
 ## 🧾 License
 
 License
-This project is licensed under the GNU General Public License v3.0 - see the LICENSE file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
 ---
 

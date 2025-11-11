@@ -197,14 +197,8 @@ const response = await mistralClient.chat({
 
 ## 🧾 License
 
-Specify your license here, e.g.:
-
-```
-MIT License
-Copyright (c) 2025
-```
-
-Include a `LICENSE` file in the repository.
+License
+This project is licensed under the GNU General Public License v3.0 - see the LICENSE file for details.
 
 ---
 

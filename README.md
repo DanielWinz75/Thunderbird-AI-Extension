@@ -18,17 +18,6 @@ It is intended for users who want to integrate generative AI directly into Thund
 
 ---
 
-## Configuration
-
-The API key has to be added to "public/secret.json":
-
-```json
-{
-    "mistralsecret": "XYZ"
-}
-```
----
-
 ## ⚙️ Installation
 
 ### 1. Clone the repository
